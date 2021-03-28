@@ -1,0 +1,237 @@
+# Author:	Olarewaju Abraham
+# Date:		Feb 15, 2021
+# Description:	Assignment #2
+
+.data			
+	intro: .asciiz "Hey! \n\n Welcome to the first assembly language program by Olarewaju Abraham.\n Here I will be prompting you for just two integers in which I will be showing you the basic arithmetic of.\n"
+	value1: .asciiz "\nPlease enter the first number: "
+	value2: .asciiz "\n Please enter the second number: "
+	conclusion: .asciiz "\nThank you for taking part in the program! Goodbye ... till next time :) "
+	newline: .asciiz "\n"
+	plusSign: .asciiz " + "
+	minusSign: .asciiz " - "
+	timesSign: .asciiz " * "
+	equalSign: .asciiz " = "
+	divisionSign: .asciiz " / "
+	remainderR: .asciiz " R "
+	sum: .word	0 
+	difference: .word	0 
+	product: .word	0 
+	quotient: .word	0 
+	remainder: .word	0 
+	
+.text              	
+	# Printing out my intorduction
+	li   $v0, 4	
+	la   $a0, intro
+	syscall		
+	
+	#---------------------------------------------------------------------------------------
+	#INPUT STATEMENT
+	
+	# prompt user to enter age 1
+	li   $v0, 4	
+	la   $a0, value1	
+	syscall		
+	
+	# get value 1
+	li $v0, 5
+	syscall 
+	
+	#move to another register
+	move $t1, $v0
+	
+	# prompt user to enter age 2
+	li   $v0, 4	
+	la   $a0, value2	
+	syscall		
+	
+	# Get value 2
+	li $v0, 5
+	syscall 
+	
+	#move to another register
+	move $t2, $v0
+	
+	#---------------------------------------------------------------------------------------
+	#ADDITION STATEMENT
+	
+	#print value1
+	li   $v0, 1	
+	move   $a0, $t1
+	syscall	
+	
+	#print +
+	li   $v0, 4	
+	la   $a0, plusSign
+	syscall	
+	
+	#print value2
+	li   $v0, 1	
+	move   $a0, $t2
+	syscall	
+	
+	#print =
+	li   $v0, 4	
+	la   $a0, equalSign
+	syscall
+	
+	#adds value1 and value2
+	add $a0, $t2, $t1
+	
+	#save sum into memory
+	sw $a0, sum 
+	
+	#print sum
+	li $v0, 1
+	syscall 
+
+	#print newline
+	li   $v0, 4	
+	la   $a0, newline
+	syscall
+	#---------------------------------------------------------------------------------------
+	#SUBTRACTION STATEMENT
+	
+	#print value1
+	li   $v0, 1	
+	move   $a0, $t1
+	syscall	
+	
+	#print -
+	li   $v0, 4	
+	la   $a0, minusSign
+	syscall	
+	
+	#print value2
+	li   $v0, 1	
+	move   $a0, $t2
+	syscall	
+	
+	#print =
+	li   $v0, 4	
+	la   $a0, equalSign
+	syscall
+	
+	#subtract value1 and value2
+	sub $a0, $t1, $t2
+	
+	#save difference into memory
+	sw $a0, difference
+	
+	#print difference
+	li $v0, 1
+	syscall 
+
+	#print newline
+	li   $v0, 4	
+	la   $a0, newline
+	syscall
+	
+	#---------------------------------------------------------------------------------------
+	#MULTIPLICATION STATEMENT
+	
+	#print value1
+	li   $v0, 1	
+	move   $a0, $t1
+	syscall	
+	
+	#print *
+	li   $v0, 4	
+	la   $a0, timesSign
+	syscall	
+	
+	#print value2
+	li   $v0, 1	
+	move   $a0, $t2
+	syscall	
+	
+	#print =
+	li   $v0, 4	
+	la   $a0, equalSign
+	syscall
+	
+	#multiply value1 and value2
+	mul $a0, $t2, $t1
+	
+	#save product into memory
+	sw $a0, product
+	
+	#print product
+	li $v0, 1
+	syscall 
+
+	#print newline
+	li   $v0, 4	
+	la   $a0, newline
+	syscall
+	
+	#---------------------------------------------------------------------------------------
+	#DIVISION STATEMENT
+	
+	#print value1
+	li   $v0, 1	
+	move   $a0, $t1
+	syscall	
+	
+	#print /
+	li   $v0, 4	
+	la   $a0, divisionSign
+	syscall	
+	
+	#print value2
+	li   $v0, 1	
+	move   $a0, $t2
+	syscall	
+	
+	#print =
+	li   $v0, 4	
+	la   $a0, equalSign
+	syscall
+	
+	#divide value1 and value2
+	div $a0, $t1, $t2
+	
+	#save quotient into memory
+	sw $a0, quotient
+	
+	#print quotient
+	li $v0, 1
+	syscall 
+
+	#---------------------------------------------------------------------------------------
+	#REMAINDER STATEMENT
+	
+	#print R
+	li   $v0, 4	
+	la   $a0, remainderR
+	syscall
+	
+	#divide value1 and value2
+	div $a0, $t1, $t2
+	
+	#find remainder
+	mfhi $s1
+	add $a0 $zero $s1
+	
+	#save remainder to memory and print
+	sw $a0, remainder
+	li $v0, 1
+	syscall 
+
+		#print newline
+	li   $v0, 4	
+	la   $a0, newline
+	syscall
+	
+	#---------------------------------------------------------------------------------------
+	#CONCLUSION
+	
+	#print out the conclusion
+	li   $v0, 4	
+	la $a0, conclusion
+	syscall
+	
+	
+	
+	
